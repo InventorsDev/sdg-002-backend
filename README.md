@@ -1,6 +1,7 @@
 # MedTime ⏰ (Backend)
 
-  
+[![BuildAndTest](https://github.com/InventorsDev/sdg-002-backend/actions/workflows/BuildAndTest.yml/badge.svg)](https://github.com/InventorsDev/sdg-002-backend/actions/workflows/BuildAndTest.yml)
+
 
 A web/mobile app that:
 
