@@ -16,8 +16,8 @@ class UserResource extends JsonResource
     {
         $array = parent::toArray($request);
         $array['avatar'] = [
-            'real' => $this->getFirstMedia('avatar')->getUrl(),
-            'thumb' => $this->getFirstMedia('avatar')->getUrl('thumb'),
+            'real' => optional($this->getFirstMedia('avatar'))->getUrl(),
+            'thumb' => optional($this->getFirstMedia('avatar'))->getUrl('thumb'),
         ];
         return $array;
     }
