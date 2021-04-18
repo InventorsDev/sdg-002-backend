@@ -96,4 +96,8 @@ class User extends Authenticatable implements JWTSubject, HasMedia
         $this->addMediaConversion('thumb')
               ->width(100);
     }
+
+    public function contacts(){
+        return $this->hasMany(EmergencyContact::class, 'user_id');
+    }
 }

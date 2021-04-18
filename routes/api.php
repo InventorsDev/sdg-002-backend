@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\EmergencyContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::post('/reset-password', [ResetPasswordController::class, 'store']);
     });
 
+    Route::apiResource('contacts', EmergencyContactController::class)->parameters([
+        'contacts' => 'emergencyContact',
+    ]);
 });
