@@ -100,4 +100,8 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     public function contacts(){
         return $this->hasMany(EmergencyContact::class, 'user_id');
     }
+
+    public function medications(){
+        return $this->hasMany(Medication::class, 'user_id');
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\EmergencyContactController;
+use App\Http\Controllers\MedicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,13 @@ Route::group(['prefix' => 'v1'], function(){
     Route::apiResource('contacts', EmergencyContactController::class)->parameters([
         'contacts' => 'emergencyContact',
     ]);
+
+    Route::apiResource('medications', MedicationController::class)->only(['store', 'show']);
+
+    Route::get('reminders', [MedicationController::class, 'reminders']);
+
+    Route::post('reminders/{reminder}/mark-as-read', [MedicationController::class, 'markAsRead']);
+
+    Route::post('reminders/{reminder}/mark-as-completed', [MedicationController::class, 'markAsCompleted']);
+
 });

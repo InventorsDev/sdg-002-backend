@@ -2,14 +2,20 @@
 
 namespace App\Providers;
 
-use App\Contracts\EmergencyContactRepository  as EmergencyContactRepositoryContract;
-use App\Repositories\EmergencyContactRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\MedicationRepository;
+use App\Repositories\EmergencyContactRepository;
+use App\Contracts\UserRepository as UserRepositoryContract;
+use App\Contracts\MedicationRepository as MedicationRepositoryContract;
+use App\Contracts\EmergencyContactRepository  as EmergencyContactRepositoryContract;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     protected array $repositories = [
         EmergencyContactRepositoryContract::class => EmergencyContactRepository::class,
+        UserRepositoryContract::class => UserRepository::class,
+        MedicationRepositoryContract::class => MedicationRepository::class,
     ];
 
     /**
