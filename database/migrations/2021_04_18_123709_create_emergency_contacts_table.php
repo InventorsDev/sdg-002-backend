@@ -23,9 +23,9 @@ class CreateEmergencyContactsTable extends Migration
             $table->timestamps();
 
             // unique phone_number to user
-            $table->unique('user_id', 'phone_number');
+            $table->unique(['user_id', 'phone_number']);
             // unique email to user
-            $table->unique('user_id', 'email');
+            $table->unique(['user_id', 'email']);
         });
     }
 
