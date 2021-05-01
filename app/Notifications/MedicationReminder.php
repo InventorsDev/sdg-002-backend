@@ -7,6 +7,7 @@ use App\Models\Medication;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Kutia\Larafirebase\Messages\FirebaseMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class MedicationReminder extends Notification implements ShouldQueue
@@ -76,8 +77,40 @@ class MedicationReminder extends Notification implements ShouldQueue
         return [
             'medication_id' => $this->medication->id,
             'drug_name' => $this->medication->drug_name,
+            'dosage' => $this->medication->dosage,
             'to_be_taken_at'  => $this->notifiedAt,
             'completed' => false,
         ];
+    }
+
+     /**
+     * Get the firebase representation of the notification.
+     */
+    public function toFirebase($notifiable)
+    {
+        $medication = $this->medication;
+        // return (new FirebaseMessage)
+        //     ->withTitle("Hi, $notifiable->name")
+        //     ->withBody("Time for your medication, $medication->drug_name on $medication->dosage")
+        //     ->asNotification($notifiable->fcm_token); // OR ->asMessage($deviceTokens);
+
+        $deviceTokens = [];
+        $deviceTokens[] = $notifiable->fcm_token;
+
+        $fields = [
+            'registration_ids' => $deviceTokens,
+            'notification' => [
+                'title' => "Hi, $notifiable->name",
+                'body' => "Time for your medication, $medication->drug_name on $medication->dosage",
+                'image' => "/ee",
+                'click_action' => 2,
+                'medication_id' => $medication->id
+            ],
+            'priority' =>  1
+        ];
+    
+        return (new FirebaseMessage)
+            ->fromArray($fields)
+            ->asMessage($deviceTokens); // OR ->asMessage($deviceTokens);
     }
 }

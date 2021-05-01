@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\MedicationController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,10 @@ Route::group(['prefix' => 'v1'], function(){
     Route::apiResource('contacts', EmergencyContactController::class)->parameters([
         'contacts' => 'emergencyContact',
     ]);
+
+    Route::group(['prefix' => 'user'], function(){
+        Route::post('fcm/token', [UserController::class, 'fcmToken']);
+    });
 
     Route::apiResource('medications', MedicationController::class)->only(['store', 'show']);
 
