@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'real' => optional($this->getFirstMedia('avatar'))->getUrl(),
             'thumb' => optional($this->getFirstMedia('avatar'))->getUrl('thumb'),
         ];
+        $array['profile'] = $this->profile;
         return $array;
     }
 }
