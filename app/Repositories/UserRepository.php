@@ -18,4 +18,10 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
                 ->toMediaCollection('avatar');
         }
     }
+
+    public function storeFCMToken(string $token): void 
+    {
+        $user = User::find(auth()->user()->id);
+        $user->update(['fcm_token' => $token]);
+    }
 }
