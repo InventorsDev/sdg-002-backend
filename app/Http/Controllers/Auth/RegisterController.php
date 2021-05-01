@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Requests\Auth\RegisterRequest;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -30,12 +31,22 @@ class RegisterController extends Controller
     public function store(RegisterRequest $request)
     {
         
-        $user = User::create([
-            'name'      => $request->name,
-            'email'      => $request->email,
-            'phone_number' => $request->phone_number,
-            'password'    => Hash::make($request->password)
-        ]);
+        $user = DB::transaction( function() use(&$request) {
+            try {
+                $user = User::create([
+                    'name'      => $request->name,
+                    'email'      => $request->email,
+                    'phone_number' => $request->phone_number,
+                    'password'    => Hash::make($request->password)
+                ]);
+
+                $user->profile()->create([]);
+
+                return $user;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        });
 
         event(new Registered($user));
         $this->saveGravatarAvatar($user);

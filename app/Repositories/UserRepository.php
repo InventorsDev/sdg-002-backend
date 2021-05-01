@@ -5,6 +5,7 @@ use Str;
 use Gravatar;
 use App\Models\User;
 use App\Contracts\UserRepository as UserRepositoryContract;
+use App\Models\Profile;
 use App\Repositories\BaseRepository;
 
 class UserRepository extends BaseRepository implements UserRepositoryContract
@@ -23,5 +24,12 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
     {
         $user = User::find(auth()->user()->id);
         $user->update(['fcm_token' => $token]);
+    }
+
+    public function updateProfile(array $data) : Profile
+    {
+        $profile = auth()->user()->profile;
+        $profile->update($data);
+        return $profile;
     }
 }

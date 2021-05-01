@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Profile;
 use Spatie\MediaLibrary\HasMedia;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -82,7 +83,7 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     }
 
     public function profile(){
-        return $this->hasOne(User::class, 'user_id');
+        return $this->hasOne(Profile::class, 'user_id');
     }
 
     public function registerMediaCollections(): void

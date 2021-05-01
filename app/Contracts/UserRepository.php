@@ -2,6 +2,7 @@
 namespace App\Contracts;
 
 use App\Models\User;
+use App\Models\Profile;
 
 
 interface UserRepository{
@@ -17,4 +18,10 @@ interface UserRepository{
      *  @param string $token
      */
     public function storeFCMToken(string $token): void;
+
+    /**
+     *  Update user profile
+     *  @param array $data
+     */
+    public function updateProfile(array $data) : Profile;
 }

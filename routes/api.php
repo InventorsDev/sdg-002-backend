@@ -39,6 +39,7 @@ Route::group(['prefix' => 'v1'], function(){
 
     Route::group(['prefix' => 'user'], function(){
         Route::post('fcm/token', [UserController::class, 'fcmToken']);
+        Route::post('profile', [UserController::class, 'profileUpdate']);
     });
 
     Route::apiResource('medications', MedicationController::class)->only(['store', 'show']);
