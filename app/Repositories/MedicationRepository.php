@@ -71,16 +71,17 @@ class MedicationRepository extends BaseRepository implements MedicationRepositor
 
         $notifications = $user->notifications()->where([
             ['type', MedicationReminder::class],
-            ['data->medication_id', 1],
         ])->get();
 
         $upcomingNotifications = $notifications->filter( function ($notification) {
             return Carbon::parse($notification->data['to_be_taken_at']) > now();
-        })->values()->toArray();
+        })->sortBy(fn ($notification, $key) => $notification->data['to_be_taken_at'])
+        ->values()->toArray();
 
         $pastNotifications = $notifications->filter( function ($notification) {
             return Carbon::parse($notification->data['to_be_taken_at']) < now();
-        })->values()->toArray();
+        })->sortBy(fn ($notification, $key) => $notification->data['to_be_taken_at'])
+        ->values()->toArray();
 
 
         return compact('upcomingNotifications', 'pastNotifications');

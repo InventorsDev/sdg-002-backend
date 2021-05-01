@@ -76,6 +76,7 @@ class MedicationReminder extends Notification implements ShouldQueue
         return [
             'medication_id' => $this->medication->id,
             'drug_name' => $this->medication->drug_name,
+            'dosage' => $this->medication->dosage,
             'to_be_taken_at'  => $this->notifiedAt,
             'completed' => false,
         ];
