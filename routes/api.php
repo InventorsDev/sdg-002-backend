@@ -40,14 +40,18 @@ Route::group(['prefix' => 'v1'], function(){
     Route::group(['prefix' => 'user'], function(){
         Route::post('fcm/token', [UserController::class, 'fcmToken']);
         Route::post('profile', [UserController::class, 'profileUpdate']);
+        Route::post('alert/contacts', [UserController::class, 'alertContacts']);
+
     });
 
-    Route::apiResource('medications', MedicationController::class)->only(['store', 'show']);
+    Route::apiResource('medications', MedicationController::class)->only(['store', 'show', 'index']);
 
     Route::get('reminders', [MedicationController::class, 'reminders']);
+    Route::get('reminders/{medication}', [MedicationController::class, 'medicationReminders']);
 
     Route::post('reminders/{reminder}/mark-as-read', [MedicationController::class, 'markAsRead']);
 
     Route::post('reminders/{reminder}/mark-as-completed', [MedicationController::class, 'markAsCompleted']);
+
 
 });
