@@ -20,6 +20,13 @@ class MedicationController extends Controller
         $this->middleware(['auth:api']);
     }
 
+
+    public function index()
+    {
+        $medications = auth()->user()->medications;
+        return MedicationResource::collection($medications);
+    }
+
     public function store(Request $request){
         $data = $request->validate([
             'drug_name' => 'required|string',
@@ -36,6 +43,7 @@ class MedicationController extends Controller
 
     public function show(Medication $medication)
     {
+        $this->authorize('view', $medication);
         return ( ( new MedicationResource($medication) )->response()->setStatusCode(200));
     }
 
@@ -45,6 +53,16 @@ class MedicationController extends Controller
             'upcomingNotifications' => $upcoming, 
             'pastNotifications' => $past
         ] = $this->medicationRepository->getMedicationReminders();
+
+        return response()->json(['data'=> compact('upcoming', 'past')]);
+    }
+
+    public function medicationReminders(Medication $medication)
+    {
+        [
+            'upcomingNotifications' => $upcoming, 
+            'pastNotifications' => $past
+        ] = $this->medicationRepository->getMedicationReminders($medication->id);
 
         return response()->json(['data'=> compact('upcoming', 'past')]);
     }

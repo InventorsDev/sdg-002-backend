@@ -30,7 +30,7 @@ class MedicationPolicy
      */
     public function view(User $user, Medication $medication)
     {
-        return $user === $medication->user_id;
+        return $user->id === $medication->user_id;
     }
 
     /**

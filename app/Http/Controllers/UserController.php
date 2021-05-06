@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\Status;
 use Illuminate\Http\Request;
+use App\Events\AlertEmergency;
 use Illuminate\Validation\Rule;
 use App\Contracts\UserRepository;
 
@@ -43,5 +44,10 @@ class UserController extends Controller
         $profile = $this->userRepository->updateProfile($data);
 
         return response()->json(['data' => $profile], 200);
+    }
+
+    public function alertContacts()
+    {
+        event( new AlertEmergency(auth()->user()));
     }
 }
