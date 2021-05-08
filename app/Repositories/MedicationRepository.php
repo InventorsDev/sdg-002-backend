@@ -50,8 +50,8 @@ class MedicationRepository extends BaseRepository implements MedicationRepositor
         $reminderTimeStamps = [];
 
         while ($dosageStartedAt <= $end) {
-            $reminderTimeStamps[] = $dosageStartedAt->toDateTimeString(); 
-            $notifiedAt = $dosageStartedAt->toDateTimeString(); 
+            $reminderTimeStamps[] = $dosageStartedAt->toIsoString(); 
+            $notifiedAt = $dosageStartedAt->toIsoString(); 
             auth()->user()->notify( (new MedicationReminder($medication, $notifiedAt))->delay([
                 'firebase' => $dosageStartedAt,
                 'mail' => $dosageStartedAt

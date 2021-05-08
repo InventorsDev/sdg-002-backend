@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Medication extends Model
 {
@@ -15,4 +16,8 @@ class Medication extends Model
         'dosage_started_at' => 'datetime',
         'dosage_ended_at' => 'datetime'
     ];
+
+    public function reminders(){
+        return $this->hasMany(DatabaseNotification::class, 'data->medication_id');
+    }
 }

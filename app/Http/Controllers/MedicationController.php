@@ -23,7 +23,7 @@ class MedicationController extends Controller
 
     public function index()
     {
-        $medications = auth()->user()->medications;
+        $medications = auth()->user()->medications()->with('reminders')->latest()->get();
         return MedicationResource::collection($medications);
     }
 
