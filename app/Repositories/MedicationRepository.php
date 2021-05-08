@@ -61,7 +61,8 @@ class MedicationRepository extends BaseRepository implements MedicationRepositor
         }
 
         $medication->dosage_ends_at = collect($reminderTimeStamps)->last();
-        // Log::info($reminderTimeStamps);
+        $medication->Save();
+
 
         return $medication;
     }
