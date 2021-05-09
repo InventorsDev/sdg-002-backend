@@ -15,5 +15,5 @@ class Profile extends Model
         'date_of_birth' => 'datetime',
     ];
 
-    protected $fillable = ['user_id', 'phone_number', 'address', 'gender', 'doctor', 'blood-group', 'next_of_kin', 'date_of_birth'];
+    protected $fillable = ['user_id', 'phone_number', 'address', 'gender', 'doctor', 'blood_group', 'next_of_kin', 'date_of_birth'];
 }

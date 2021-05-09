@@ -14,7 +14,7 @@ class Medication extends Model
 
     protected $casts = [
         'dosage_started_at' => 'datetime',
-        'dosage_ended_at' => 'datetime'
+        'dosage_ends_at' => 'datetime'
     ];
 
     public function reminders(){
