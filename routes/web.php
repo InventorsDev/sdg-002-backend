@@ -18,3 +18,4 @@ Route::get('/', function () {
     return response()->json(['message' => 'Med Time API']);
 });
 
+
